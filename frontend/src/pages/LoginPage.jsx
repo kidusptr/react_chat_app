@@ -8,18 +8,35 @@ const LoginPage = () => {
   const [password, setPassword] = useState("");
   const [bio, setBio] = useState("");
   const [isDataSubmitted, setIsDataSubmitted] = useState(false);
+  const onSubmitHandler = (e) => {
+    e.preventDefault();
+    if (currentState === "Sign up" && !isDataSubmitted) {
+      setIsDataSubmitted(true);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-cover bg-center flex items-center justify-center gap-8 sm:justify-evenlt max-sm:flex-col backdrop-blur-2xl">
       {/* Background image */}
       <img src={assets.logo_big} alt="" className="w-[min(30vw,250px)]" />
       {/* Login form */}
       <form
+        onSubmit={onSubmitHandler}
         action=""
         className="border-2 bg-white/2 text-white border-gray-500 p-6 flex flex-col gap-6 rounded-lg shadow-lg"
       >
         <h2 className="font-medium text-2xl flex justify-between items-center">
-          {currentState}{" "}
-          <img src={assets.arrow_icon} alt="" className="w-5 cursor-pointer" />
+          {currentState}
+          {isDataSubmitted && (
+            <img
+              onClick={() => {
+                setIsDataSubmitted(false);
+              }}
+              src={assets.arrow_icon}
+              alt=""
+              className="w-5 cursor-pointer"
+            />
+          )}
         </h2>
 
         {currentState === "Sign up" && !isDataSubmitted && (
